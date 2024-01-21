@@ -3,8 +3,11 @@ from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Project(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200) #pet name
     description = models.TextField()
+    animal = models.CharField(max_length=30, default='unknown')
+    breed = models.CharField(max_length=30, default='unknown')
+    city = models.CharField(max_length=30, default='unknown')
     goal = models.IntegerField()
     image = models.URLField()
     is_open = models.BooleanField()
