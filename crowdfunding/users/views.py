@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import CustomUser
 from .serializer import CustomUserSerializer, CustomUserDetailSerializer
+from .permissions import IsUserOrReadOnly
+from rest_framework import permissions
 
 class CustomUserList(APIView):
    def get(self, request):
@@ -21,18 +23,23 @@ class CustomUserList(APIView):
        
    
 class CustomUserDetail(APIView):
-   def get_object(self, pk):
+   
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsUserOrReadOnly
+    ] 
+    def get_object(self, pk):
         try:
            return CustomUser.objects.get(pk=pk)
         except CustomUser.DoesNotExist:
            raise Http404
 
-   def get(self, request, pk):
+    def get(self, request, pk):
        user = self.get_object(pk)
        serializer = CustomUserDetailSerializer(user)
        return Response(serializer.data)
    
-   def put (self, request, pk):
+    def put (self, request, pk):
         user = self.get_object(pk)
         serializer = CustomUserDetailSerializer(
              instance=user,
@@ -48,7 +55,7 @@ class CustomUserDetail(APIView):
              status=status.HTTP_400_BAD_REQUEST
         )
    
-   def delete(self,request, pk):
+    def delete(self,request, pk):
        user = self.get_object(pk)
        if user==request.user:
            user.delete()
