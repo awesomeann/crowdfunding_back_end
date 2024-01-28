@@ -15,8 +15,8 @@ class Project(models.Model):
         ("BIRD", "Bird"),
         ("HORSE", "Horse")
     )
-    animal = models.CharField(max_length=30)
-    city = models.CharField(max_length=30, choices=animal_choices)
+    animal = models.CharField(max_length=30, choices=animal_choices)
+    city = models.CharField(max_length=30)
     country = models.CharField(max_length=30)
     goal = models.IntegerField()
     image = models.URLField()

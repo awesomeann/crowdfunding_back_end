@@ -26,13 +26,11 @@ class ProjectDetailSerializer (ProjectSerializer):
         instance.goal = validated_data.get('goal', instance.goal)
         instance.image = validated_data.get('image', instance.image)
         instance.is_open = validated_data.get('is_open', instance.is_open)
-        instance.date_created = validated_data.get('date_created', instance.date_created)
+        instance.deadline = validated_data.get('deadline', instance.deadline)
         instance.owner = validated_data.get('owner', instance.owner)
         instance.save()
         return instance
         
-
-
 
 class PledgeDetailSerializer(serializers.ModelSerializer):
 
