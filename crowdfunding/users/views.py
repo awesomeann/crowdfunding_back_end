@@ -1,10 +1,10 @@
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from .models import CustomUser
 from .serializer import CustomUserSerializer, CustomUserDetailSerializer
-from rest_framework import permissions
+from .permissions import IsNotAuthenticated,IsAuthenticatedAndOwner
 
 class CustomUserList(APIView):
    def get(self, request):
@@ -22,7 +22,7 @@ class CustomUserList(APIView):
        
    
 class CustomUserDetail(APIView):
-   
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
  
     def get_object(self, pk):
         try:
