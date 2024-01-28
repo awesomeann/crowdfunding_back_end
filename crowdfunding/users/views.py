@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import CustomUser
 from .serializer import CustomUserSerializer, CustomUserDetailSerializer
-from .permissions import IsUserOrReadOnly
 from rest_framework import permissions
 
 class CustomUserList(APIView):
@@ -25,8 +24,7 @@ class CustomUserList(APIView):
 class CustomUserDetail(APIView):
    
     permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
-        IsUserOrReadOnly
+        permissions.IsAuthenticatedOrReadOnly
     ] 
     def get_object(self, pk):
         try:
