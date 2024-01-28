@@ -20,7 +20,7 @@ class Project(models.Model):
     country = models.CharField(max_length=30)
     goal = models.IntegerField()
     image = models.URLField()
-    is_open = models.BooleanField()
+    is_open = models.BooleanField(default=True)
     is_successful = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=datetime.now())
     deadline = models.DateTimeField(default=one_month_from_today)
@@ -34,7 +34,7 @@ class Project(models.Model):
 class Pledge(models.Model):
     amount = models.IntegerField()
     comment = models.CharField(max_length=200)
-    anonymous = models.BooleanField()
+    anonymous = models.BooleanField(default=False)
     project = models.ForeignKey(
         'Project', on_delete=models.CASCADE,
         related_name='pledges'
