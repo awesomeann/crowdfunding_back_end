@@ -33,7 +33,7 @@ class ProjectDetailSerializer (ProjectSerializer):
         return instance
         
 
-class PledgeDetailSerializer(serializers.ModelSerializer):
+class PledgeDetailSerializer(PledgeSerializer):
 
     def update(self, instance, validated_data):
         instance.comment = validated_data.get('comment', instance.comment)
