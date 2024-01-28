@@ -4,7 +4,7 @@ from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer, PledgeDetailSerializer
 from django.http import Http404
 from rest_framework import status, permissions
-from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly, IsAdminOrReadOnly
 
 class ProjectList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -93,7 +93,7 @@ class PledgeDetail(APIView):
 # will need to add the endpoint in URLs.py
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly,
-        IsSupporterOrReadOnly
+        IsSupporterOrReadOnly, IsAdminOrReadOnly
     ]
 
 # getting the object from the database
