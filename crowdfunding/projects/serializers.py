@@ -13,7 +13,7 @@ class PledgeSerializer (serializers.ModelSerializer):
     supporter = serializers.ReadOnlyField(source='supporter.id')
 
     class Meta:
-        model = Project
+        model = Pledge
         fields = '__all__'
 
 class ProjectDetailSerializer (ProjectSerializer):

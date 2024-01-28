@@ -133,3 +133,5 @@ class PledgeDetail(APIView):
            pledge.delete()
            return Response({"detail":"Pledge deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
+    
