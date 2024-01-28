@@ -15,9 +15,9 @@ class Project(models.Model):
         ("BIRD", "Bird"),
         ("HORSE", "Horse")
     )
-    animal = models.CharField(max_length=30, default='unknown')
-    city = models.CharField(max_length=30, choices=animal_choices, default='unknown')
-    country = models.CharField(max_length=30, default='unknown')
+    animal = models.CharField(max_length=30)
+    city = models.CharField(max_length=30, choices=animal_choices)
+    country = models.CharField(max_length=30)
     goal = models.IntegerField()
     image = models.URLField()
     is_open = models.BooleanField()
