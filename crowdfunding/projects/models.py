@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from datetime import datetime, timedelta
+from django.db.models import Sum
 
 def one_month_from_today():
     return datetime.now() + timedelta(days=30)
@@ -29,6 +30,17 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owned_projects'
     )
+
+    @property
+    def total_number_of_pledges(self):
+        return self.pledges.count()
+
+       
+    @property
+    def sum_of_pledges(self):
+        sum = self.pledges.aggregate(Sum("amount", default=0))
+        return sum
+    
 
 
 class Pledge(models.Model):

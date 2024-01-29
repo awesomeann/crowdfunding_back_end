@@ -2,9 +2,11 @@ from rest_framework import serializers
 from .models import Project, Pledge
 
 
+
 class ProjectSerializer (serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id')
-
+    total_number_of_pledges = serializers.ReadOnlyField()
+    sum_of_pledges = serializers.ReadOnlyField(source='Project.sum_of_pledges')
     class Meta:
         model = Project
         fields = '__all__'
@@ -18,7 +20,8 @@ class PledgeSerializer (serializers.ModelSerializer):
 
 class ProjectDetailSerializer (ProjectSerializer):
     pledges = PledgeSerializer(many=True, read_only=True)
-
+    total_number_of_pledges = serializers.ReadOnlyField()
+    sum_of_pledges = serializers.ReadOnlyField()
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
@@ -31,7 +34,8 @@ class ProjectDetailSerializer (ProjectSerializer):
         instance.deadline = validated_data.get('deadline', instance.deadline)
         instance.save()
         return instance
-        
+    
+    
 
 class PledgeDetailSerializer(PledgeSerializer):
 

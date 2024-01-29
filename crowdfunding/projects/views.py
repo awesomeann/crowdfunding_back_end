@@ -6,6 +6,7 @@ from django.http import Http404
 from rest_framework import status, permissions
 from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
+
 class ProjectList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -70,6 +71,7 @@ class ProjectDetail(APIView):
            return Response({"detail":"Project deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
        return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request):
@@ -109,7 +111,7 @@ class PledgeDetail(APIView):
     def get(self, request, pk):
         pledge = self.get_object(pk)
         serializer = PledgeDetailSerializer(pledge)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
     def put (self, request, pk):
         pledge = self.get_object(pk)
@@ -120,7 +122,7 @@ class PledgeDetail(APIView):
         )
         if serializer.is_valid():
              serializer.save()
-             return Response(serializer.data)
+             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(
              serializer.errors,
@@ -128,10 +130,9 @@ class PledgeDetail(APIView):
         )
     
     def delete(self,request, pk):
-       pledge = self.get_object(pk)
-       if pledge.supporter==request.user:
-           pledge.delete()
-           return Response({"detail":"Pledge deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-       return Response(status=status.HTTP_400_BAD_REQUEST)
+        pledge = self.get_object(pk)
+        pledge.delete()
+        return Response({"detail":"Pledge deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+       
     
     
