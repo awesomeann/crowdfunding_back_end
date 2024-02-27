@@ -6,7 +6,7 @@ from .models import Project, Pledge
 class ProjectSerializer (serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.id')
     total_number_of_pledges = serializers.ReadOnlyField()
-    sum_of_pledges = serializers.ReadOnlyField(source='Project.sum_of_pledges')
+    sum_of_pledges = serializers.ReadOnlyField()
     class Meta:
         model = Project
         fields = '__all__'
