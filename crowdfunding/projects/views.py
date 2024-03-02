@@ -73,8 +73,11 @@ class ProjectDetail(APIView):
 
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    def get(self, request):
-            pledges = Pledge.objects.all()
+    def get(self, request,project_id=None):
+            if project_id:
+                pledges = Pledge.objects.all().filter(project=project_id)
+            else:
+                pledges = Pledge.objects.all()
             serializer = PledgeSerializer(pledges, many=True)
             return Response(serializer.data)
 
