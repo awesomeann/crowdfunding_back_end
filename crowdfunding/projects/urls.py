@@ -8,5 +8,6 @@ urlpatterns = [
     path('pledges/<int:project_id>', views.PledgeList.as_view()),
     # path('pledges/<int:pk>/', views.PledgeDetail.as_view()),
     path('pledges/', views.PledgeList.as_view()),
+    path('projects-status/<int:pk>/', views.ProjectStatus.as_view()),
 
 ]

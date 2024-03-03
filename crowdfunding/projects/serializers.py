@@ -35,7 +35,11 @@ class ProjectDetailSerializer (ProjectSerializer):
         instance.save()
         return instance
     
-    
+class ProjectStatusSerializer (ProjectSerializer): 
+     def update(self, instance, validated_data):  
+          instance.is_successful = validated_data.get('is_successful', instance.is_successful)
+          instance.save()
+          return instance
 
 class PledgeDetailSerializer(PledgeSerializer):
 
